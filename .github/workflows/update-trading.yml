@@ -1,0 +1,69 @@
+name: Update Trading Data
+
+on:
+  workflow_dispatch: # Manual trigger
+  schedule:
+    - cron: '3,18,33,48 * * * *' # Every 15 minutes (at :03, :18, :33, :48)
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout pages repo
+        uses: actions/checkout@v4
+
+      - name: Checkout trading generator repo
+        uses: actions/checkout@v4
+        with:
+          repository: scpages/trading
+          path: generator
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Generate trading page
+        id: generate
+        working-directory: generator
+        run: |
+          chmod +x generate-trading.js
+          node generate-trading.js
+          echo "status=success" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Check generation status
+        id: check
+        run: |
+          if [ "${{ steps.generate.outcome }}" = "success" ]; then
+            echo "Generation succeeded"
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "Generation failed - keeping old data"
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Copy generated files
+        if: steps.check.outputs.should_deploy == 'true'
+        run: |
+          mkdir -p docs/trading
+          cp generator/index.html docs/trading/index.html
+          cp generator/default.css docs/trading/default.css
+          date -u +"%Y-%m-%d %H:%M:%S UTC" > docs/trading/.last-update
+
+      - name: Commit and push
+        if: steps.check.outputs.should_deploy == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/trading/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update trading data" && git push)
+
+      - name: Report failure
+        if: steps.check.outputs.should_deploy == 'false'
+        run: |
+          echo "::warning::Trading data generation failed. Previous data retained."
+          exit 0
