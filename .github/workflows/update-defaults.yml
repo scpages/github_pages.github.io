@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Generate HTML
         working-directory: generator
@@ -36,13 +36,13 @@ jobs:
 
       - name: Copy generated file
         run: |
-          mkdir -p pages/defaults
-          cp generator/index.html pages/defaults/index.html
+          mkdir -p pages/docs/default-loadouts
+          cp generator/index.html pages/docs/default-loadouts/index.html
 
       - name: Commit and push
         working-directory: pages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add defaults/index.html
+          git add docs/default-loadouts/index.html
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update default ship loadouts" && git push)
