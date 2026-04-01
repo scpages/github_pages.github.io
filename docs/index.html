@@ -1,42 +1,247 @@
-<html>
-  <head>
-    <title>Rozcestník - Star Citizen</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/default.css" media="screen" >
-  </head>
-  <body>
-	<div>
-		<h3>Moje - Dodoslav</h3>
-		<ul>
-			<li><a href="/defaults/" target="_new">Zakladne komponenty</a></li>
-			<li><a href="https://sctrading.dodoslav.eu" target="_new">Cargo Trading</a></li>
-			<li><a href="https://scitems.dodoslav.eu" target="_new">Armor galery</a></li>
-		</ul>
-		<h3>Cargo Trading</h3>
-		<ul>
-			<li><a href="https://uexcorp.space" target="_new">UEXcorp</a></li>
-			<li><a href="https://sc-trade.tools" target="_new">SC-Trade</a></li>
-		</ul>
-		<h3>Lode</h3>
-		<ul>
-			<li><a href="https://www.erkul.games" target="_new">Erkul</a></li>
-			<li><a href="https://www.spviewer.eu" target="_new">SPViewer</a></li>
-		</ul>
-		<h3>Vizualizácie lodí</h3>
-		<ul>
-			<li><a href="https://hangar.link/" target="_new">Hangar-Link</a></li>
-			<li><a href="https://www.starship42.com/" target="_new">Starship42</a></li>
-		</ul>
-		<h3>Contested Zóny</h3>
-		<ul>
-			<li><a href="https://contestedzonetimers.com" target="_new">Hangar-Link</a></li>
-			<li><a href="https://exec.xyxyll.com" target="_new">Exec</a></li>
-		</ul>
-		<h3>Ostatné</h3>
-		<ul>
-			<li><a href="https://sc-cargo.space/" target="_new">Cargo-grid vizualizácie</a></li>
-			<li><a href="https://www.star-citizen-characters.com/" target="_new">Character galéria</a></li>
-		</ul>
-	</div>
-  </body>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Citizen - Rozcestník</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+      color: #e8e8e8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background: rgba(10, 14, 39, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #2a9fd6;
+      padding: 30px 0;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      text-shadow: 0 0 20px rgba(42, 159, 214, 0.5);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #a0a0a0;
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 968px) {
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    .section {
+      background: rgba(20, 25, 45, 0.6);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .section-title {
+      color: #2a9fd6;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(42, 159, 214, 0.3);
+      text-align: center;
+    }
+
+    .category {
+      margin-bottom: 30px;
+    }
+
+    .category:last-child {
+      margin-bottom: 0;
+    }
+
+    .category-title {
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      padding-left: 10px;
+      border-left: 3px solid #2a9fd6;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .link-button {
+      display: block;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, rgba(42, 159, 214, 0.15) 0%, rgba(42, 159, 214, 0.05) 100%);
+      border: 1px solid rgba(42, 159, 214, 0.3);
+      border-radius: 8px;
+      color: #e8e8e8;
+      text-decoration: none;
+      font-size: 1.05rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(42, 159, 214, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .link-button:hover::before {
+      left: 100%;
+    }
+
+    .link-button:hover {
+      background: linear-gradient(135deg, rgba(42, 159, 214, 0.3) 0%, rgba(42, 159, 214, 0.15) 100%);
+      border-color: #2a9fd6;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(42, 159, 214, 0.2);
+    }
+
+    .link-button:active {
+      transform: translateY(0);
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(42, 159, 214, 0.3);
+      color: #888;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #2a9fd6;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+      color: #4fc3f7;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>🚀 Star Citizen Rozcestník</h1>
+      <div class="subtitle">Užitečné odkazy a nástroje</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="grid">
+
+      <!-- Left Column - My Sites -->
+      <div class="section">
+        <h2 class="section-title">Moje Stránky</h2>
+
+        <div class="category">
+          <h3 class="category-title">Databáze</h3>
+          <div class="links">
+            <a href="/default-loadouts/" class="link-button">⚙️ Základní Komponenty Lodí</a>
+            <a href="https://sctrading.dodoslav.eu" class="link-button" target="_blank">📦 Cargo Trading</a>
+            <a href="https://scitems.dodoslav.eu" class="link-button" target="_blank">🎽 Armor Galérie</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - External Links -->
+      <div class="section">
+        <h2 class="section-title">Externí Nástroje</h2>
+
+        <div class="category">
+          <h3 class="category-title">Cargo Trading</h3>
+          <div class="links">
+            <a href="https://uexcorp.space" class="link-button" target="_blank">📊 UEXcorp</a>
+            <a href="https://sc-trade.tools" class="link-button" target="_blank">🛸 SC-Trade</a>
+          </div>
+        </div>
+
+        <div class="category">
+          <h3 class="category-title">Loadout & Informace o Lodích</h3>
+          <div class="links">
+            <a href="https://www.erkul.games" class="link-button" target="_blank">🔧 Erkul DPS Calculator</a>
+            <a href="https://www.spviewer.eu" class="link-button" target="_blank">🎮 SPViewer</a>
+          </div>
+        </div>
+
+        <div class="category">
+          <h3 class="category-title">Vizualizace Lodí</h3>
+          <div class="links">
+            <a href="https://hangar.link/" class="link-button" target="_blank">🏠 Hangar Link</a>
+            <a href="https://www.starship42.com/" class="link-button" target="_blank">🚀 Starship42</a>
+          </div>
+        </div>
+
+        <div class="category">
+          <h3 class="category-title">Contested Zóny</h3>
+          <div class="links">
+            <a href="https://contestedzonetimers.com" class="link-button" target="_blank">⏱️ CZ Timers</a>
+            <a href="https://exec.xyxyll.com" class="link-button" target="_blank">📍 Exec</a>
+          </div>
+        </div>
+
+        <div class="category">
+          <h3 class="category-title">Ostatní</h3>
+          <div class="links">
+            <a href="https://sc-cargo.space/" class="link-button" target="_blank">📐 Cargo Grid Vizualizace</a>
+            <a href="https://www.star-citizen-characters.com/" class="link-button" target="_blank">👤 Character Galérie</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <a href="https://github.com/scpages/scpages.github.io" target="_blank">GitHub Repository</a>
+    </div>
+  </div>
+
+</body>
 </html>
